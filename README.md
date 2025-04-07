@@ -174,11 +174,47 @@ graph TD
     generate --> __end__
 ```
 
+## 🔍 ORQA_RAG Retriever
+
+The `ORQA_RAG` retriever is a core component of our retrieval-augmented generation (RAG) pipeline, enabling accurate and domain-aware responses by leveraging a hybrid retrieval setup. It supports tool-based retrieval across multiple knowledge domains within the OpenROAD ecosystem.
+
+### 📌 Key Features
+
+- **Hybrid Retrieval**: Combines dense vector search (via FAISS) with keyword-based semantic retrieval.
+- **Multi-Tool Architecture**: Dynamically routes queries to domain-specific retrievers like:
+  - OpenROAD / OpenROAD-flow-scripts (OR/ORFS)
+  - OpenSTA
+  - Yosys
+  - KLayout
+- **Cross-Encoder Re-ranking**: Enhances result accuracy by re-ranking the top retrieved chunks using a transformer-based re-ranker.
+- **LangGraph-Enabled Routing**: Uses LLM-based classification to decide the best retriever tool for a given user query.
+
 ## Dataset overview
 
-The RAG dataset used in this project can be found [here](https://huggingface.co/datasets/The-OpenROAD-Project/ORAssistant_RAG_Dataset).
+The retrieval-augmented generation (RAG) pipeline uses a curated dataset built from OpenROAD documentation and other EDA tool documentation. The dataset is publicly available at:
+👉[here](https://huggingface.co/datasets/The-OpenROAD-Project/ORAssistant_RAG_Dataset).
 
-To modify the dataset, please refer to [build_docs.py](./backend/build_docs.py)
+To customize or rebuild the dataset, run:[build_docs.py](./backend/build_docs.py)
+
+For benchmarking, we evaluate the ORQA_RAG retriever using the ORD-QA dataset:
+
+👉 [ORD-QA (RAG-EDA benchmark)](https://github.com/lesliepy99/RAG-EDA/blob/main/benchmark%2FORD-QA.jsonl)
+
+This dataset enables consistent QA-style evaluation of retrieval accuracy. Integration into the evaluation/ module is under active development.
+
+## 🧪 Evaluation
+
+We support automated evaluation using question-answer datasets. The default dataset used is **ORD-QA**, designed to test retriever performance across OpenROAD-related domains.
+
+📂 **ORD-QA Dataset (JSONL)**  
+👉  [ORD-QA JSONL File](https://github.com/lesliepy99/RAG-EDA/blob/main/benchmark%2FORD-QA.jsonl)
+
+### ▶️ Run Evaluation:
+
+```bash
+cd evaluation
+python eval.py --dataset_path benchmark/ORD-QA.jsonl --retriever orqa_rag
+
 
 ## Tests
 
