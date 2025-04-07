@@ -209,20 +209,21 @@ We support automated evaluation using question-answer datasets. The default data
 📂 **ORD-QA Dataset (JSONL)**  
 👉  [ORD-QA JSONL File](https://github.com/lesliepy99/RAG-EDA/blob/main/benchmark%2FORD-QA.jsonl)
 
-### ▶️ Run Evaluation:
+## ▶️ Run Evaluation
 
 ```bash
 cd evaluation
 python eval.py --dataset_path benchmark/ORD-QA.jsonl --retriever orqa_rag
-
-
-## Tests
-
 ```
+
+## 🧪 Tests
+
+To ensure consistent code quality and formatting, you can run the following commands:
+
+```bash
 make format
 make check
 ```
-
 ## Hosted Version
 
 ORAssistant is currently hosted at this [link](https://orassistant.netlify.app/). Feel free to use the application and provide feedback!
@@ -257,3 +258,6 @@ If you use this software in any published work, we would appreciate a citation! 
   note = {Accessed: 20xx-xx-xx}
 }
 ```
+
+
+
